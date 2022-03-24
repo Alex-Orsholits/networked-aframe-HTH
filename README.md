@@ -1,10 +1,8 @@
-[slack]: https://aframevr.slack.com/join/shared_invite/zt-f6rne3ly-ekVaBU~Xu~fsZHXr56jacQ
+This is a quick and dirty fork
 
 <img src="http://i.imgur.com/7ddbE0q.gif" width="300">
 
-
-Networked-Aframe
-=======
+# Networked-Aframe
 
 <span class="badge-npmversion"><a href="https://npmjs.org/package/networked-aframe" title="View this project on NPM"><img src="https://img.shields.io/npm/v/networked-aframe.svg" alt="NPM version" /></a></span>
 <span class="badge-npmdownloads"><a href="https://npmjs.org/package/networked-aframe" title="View this project on NPM"><img src="https://img.shields.io/npm/dm/networked-aframe.svg" alt="NPM downloads" /></a></span>
@@ -29,25 +27,20 @@ Built on top of [A-Frame](https://aframe.io/).
 
 <br>
 
+## Features
 
-Features
---------
-* Support for WebRTC and/or WebSocket connections.
-* Voice chat. Audio streaming to let your users talk in-app (WebRTC only).
-* Video chat. See video streams in-app.
-* Bandwidth sensitive. Only send network updates when things change.
-* Cross-platform. Works on all modern Desktop and Mobile browsers. Oculus Rift, Oculus Quest, HTC Vive and Google Cardboard.
-* Extendable. Sync any A-Frame component, including your own, without changing the component code at all.
+- Support for WebRTC and/or WebSocket connections.
+- Voice chat. Audio streaming to let your users talk in-app (WebRTC only).
+- Video chat. See video streams in-app.
+- Bandwidth sensitive. Only send network updates when things change.
+- Cross-platform. Works on all modern Desktop and Mobile browsers. Oculus Rift, Oculus Quest, HTC Vive and Google Cardboard.
+- Extendable. Sync any A-Frame component, including your own, without changing the component code at all.
 
-
-Release notes
--------------
+## Release notes
 
 You can read [the release notes](https://github.com/networked-aframe/networked-aframe/blob/master/docs/RELEASE_NOTES.md) to know what changed in the latest releases.
 
-
-Getting Started
----------------
+## Getting Started
 
 [![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/remix/naf-project)
 
@@ -55,19 +48,19 @@ Follow [the NAF Getting Started tutorial](https://github.com/networked-aframe/ne
 
 To run the examples on your own PC:
 
- ```sh
+```sh
 git clone https://github.com/networked-aframe/networked-aframe.git  # Clone the repository.
 cd networked-aframe
 npm install  # Install dependencies.
 npm run dev  # Start the local development server.
 ```
+
 With the server running, browse the examples at `http://localhost:8080`. Open another browser tab and point it to the same URL to see the other client.
 
 For info on how to host your experience on the internet, see the [NAF Hosting Guide](https://github.com/networked-aframe/networked-aframe/blob/master/docs/hosting-networked-aframe-on-a-server.md).
 
+## Basic Example
 
-Basic Example
--------------
 ```html
 <html>
   <head>
@@ -81,48 +74,51 @@ Basic Example
     <a-scene networked-scene>
       <a-assets>
         <template id="avatar-template">
-           <a-sphere></a-sphere>
+          <a-sphere></a-sphere>
         </template>
       </a-assets>
-      <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera wasd-controls look-controls>
+      <a-entity
+        id="player"
+        networked="template:#avatar-template;attachTemplateToLocal:false;"
+        camera
+        wasd-controls
+        look-controls
+      >
       </a-entity>
     </a-scene>
   </body>
 </html>
 ```
 
-More Examples
--------------
+## More Examples
 
 Open in two tabs if nobody else is online, or [remix the code examples yourself](https://glitch.com/edit/#!/remix/naf-examples).
 
-* [Basic](https://naf-examples.glitch.me/basic.html)
-* [Basic with 4 clients](https://naf-examples.glitch.me/basic-4.html)
-* [Google Blocks](https://naf-examples.glitch.me/google-blocks.html)
-* [Tracked Controllers](https://naf-examples.glitch.me/tracked-controllers.html)
-* [Positional Audio](https://naf-examples.glitch.me/basic-audio.html)
-* [Nametags](https://glitch.com/edit/#!/naf-nametags) (not updated to latest version)
-* [Dynamic Room Name](https://glitch.com/edit/#!/naf-dynamic-room) (not updated to latest version)
-* [Form to set room and username](https://glitch.com/edit/#!/naf-form-example) (not updated to latest version)
-* [More...](https://naf-examples.glitch.me)
+- [Basic](https://naf-examples.glitch.me/basic.html)
+- [Basic with 4 clients](https://naf-examples.glitch.me/basic-4.html)
+- [Google Blocks](https://naf-examples.glitch.me/google-blocks.html)
+- [Tracked Controllers](https://naf-examples.glitch.me/tracked-controllers.html)
+- [Positional Audio](https://naf-examples.glitch.me/basic-audio.html)
+- [Nametags](https://glitch.com/edit/#!/naf-nametags) (not updated to latest version)
+- [Dynamic Room Name](https://glitch.com/edit/#!/naf-dynamic-room) (not updated to latest version)
+- [Form to set room and username](https://glitch.com/edit/#!/naf-form-example) (not updated to latest version)
+- [More...](https://naf-examples.glitch.me)
 
 Made something awesome with Networked-Aframe? [Let us know](https://github.com/networked-aframe/networked-aframe/issues) and we'll include it here.
 
-
-Documentation
--------------
+## Documentation
 
 ### Overview
 
 Networked-Aframe works by syncing entities and their components to connected users. To connect to a room you need to add the [`networked-scene`](#scene-component) component to the `a-scene` element. For an entity to be synced, add the `networked` component to it. By default the `position` and `rotation` components are synced, but if you want to sync other components or child components you need to define a [schema](#syncing-custom-components). For more advanced control over the network messages see the sections on [Broadcasting Custom Messages](#sending-custom-messages) and [Options](#options).
-
 
 ### Scene component
 
 Required on the A-Frame `<a-scene>` component.
 
 ```html
-<a-scene networked-scene="
+<a-scene
+  networked-scene="
   serverURL: /;
   app: <appId>;
   room: <roomName>;
@@ -132,29 +128,30 @@ Required on the A-Frame `<a-scene>` component.
   audio: false;
   video: false;
   debug: false;
-">
+"
+>
   ...
 </a-scene>
 ```
 
-| Property | Description | Default Value |
-| -------- | ----------- | ------------- |
-| serverURL  | Choose where the WebSocket / signalling server is located. | / |
-| app  | Unique app name. Spaces are not allowed. | default |
-| room  | Unique room name. Can be multiple per app. Spaces are not allowed. There can be multiple rooms per app and clients can only connect to clients in the same app & room. | default |
-| connectOnLoad  | Connect to the server as soon as the webpage loads. | true |
-| onConnect  | Function to be called when client has successfully connected to the server. | onConnect |
-| adapter | The network service that you wish to use, see [adapters](#adapters). | wseasyrtc |
-| audio  | Turn on / off microphone audio streaming for your app. Only works if the chosen adapter supports it. | false |
-| video  | Turn on / off video streaming for your app. Only works if the chosen adapter supports it. | false |
-| debug  | Turn on / off Networked-Aframe debug logs. | false |
+| Property      | Description                                                                                                                                                            | Default Value |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| serverURL     | Choose where the WebSocket / signalling server is located.                                                                                                             | /             |
+| app           | Unique app name. Spaces are not allowed.                                                                                                                               | default       |
+| room          | Unique room name. Can be multiple per app. Spaces are not allowed. There can be multiple rooms per app and clients can only connect to clients in the same app & room. | default       |
+| connectOnLoad | Connect to the server as soon as the webpage loads.                                                                                                                    | true          |
+| onConnect     | Function to be called when client has successfully connected to the server.                                                                                            | onConnect     |
+| adapter       | The network service that you wish to use, see [adapters](#adapters).                                                                                                   | wseasyrtc     |
+| audio         | Turn on / off microphone audio streaming for your app. Only works if the chosen adapter supports it.                                                                   | false         |
+| video         | Turn on / off video streaming for your app. Only works if the chosen adapter supports it.                                                                              | false         |
+| debug         | Turn on / off Networked-Aframe debug logs.                                                                                                                             | false         |
 
 ### Connecting
 
 By default, `networked-scene` will connect to your server automatically. To prevent this and instead have control over when to connect, set `connectOnLoad` to false in `networked-scene`. When you are ready to connect emit the `connect` event on the `a-scene` element.
 
 ```javascript
-AFRAME.scenes[0].emit('connect');
+AFRAME.scenes[0].emit("connect");
 ```
 
 ### Disconnecting
@@ -162,11 +159,10 @@ AFRAME.scenes[0].emit('connect');
 To disconnect simply remove the `networked-scene` component from the `a-scene` element.
 
 ```javascript
-AFRAME.scenes[0].removeAttribute('networked-scene');
+AFRAME.scenes[0].removeAttribute("networked-scene");
 ```
 
 Completely removing `a-scene` from your page will also handle cleanly disconnecting.
-
 
 ### Creating Networked Entities
 
@@ -177,15 +173,14 @@ Completely removing `a-scene` from your page will also handle cleanly disconnect
       <a-sphere color="#f00"></a-sphere>
     </a-entity>
   </template>
-<a-assets>
+  <a-assets>
+    <!-- Attach local template by default -->
+    <a-entity networked="template: #my-template"> </a-entity>
 
-<!-- Attach local template by default -->
-<a-entity networked="template: #my-template">
-</a-entity>
-
-<!-- Do not attach local template -->
-<a-entity networked="template:#my-template;attachTemplateToLocal:false">
-</a-entity>
+    <!-- Do not attach local template -->
+    <a-entity networked="template:#my-template;attachTemplateToLocal:false">
+    </a-entity></a-assets
+></a-assets>
 ```
 
 Create an instance of a template to be synced across clients. The position and rotation will be synced by default. The [`buffered-interpolation`](https://github.com/InfiniteLee/buffered-interpolation) library is used to allow for less network updates while keeping smooth motion.
@@ -195,8 +190,7 @@ Templates must only have one root element. When `attachTemplateToLocal` is set t
 #### Example `attachTemplateToLocal=true`
 
 ```html
-<a-entity wasd-controls networked="template:#my-template">
-</a-entity>
+<a-entity wasd-controls networked="template:#my-template"> </a-entity>
 
 <!-- Locally instantiated as: -->
 <a-entity wasd-controls networked="template:#my-template">
@@ -208,10 +202,14 @@ Templates must only have one root element. When `attachTemplateToLocal` is set t
   <a-sphere color="#f00"></a-sphere>
 </a-entity>
 ```
+
 #### Example `attachTemplateToLocal=false`
 
 ```html
-<a-entity wasd-controls networked="template:#my-template;attachTemplateToLocal:false;">
+<a-entity
+  wasd-controls
+  networked="template:#my-template;attachTemplateToLocal:false;"
+>
 </a-entity>
 
 <!-- No changes to local entity on instantiation -->
@@ -222,17 +220,15 @@ Templates must only have one root element. When `attachTemplateToLocal` is set t
 </a-entity>
 ```
 
-| Parameter | Description | Default
-| -------- | ------------ | --------------
-| template  | A css selector to a template tag stored in `<a-assets>` | ''
-| attachTemplateToLocal  | Does not attach the template for the local user when set to false. This is useful when there is different behavior locally and remotely. | true
-| persistent | On remote creator (not owner) disconnect, attempts to take ownership of persistent entities rather than delete them | false
-
+| Parameter             | Description                                                                                                                              | Default |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| template              | A css selector to a template tag stored in `<a-assets>`                                                                                  | ''      |
+| attachTemplateToLocal | Does not attach the template for the local user when set to false. This is useful when there is different behavior locally and remotely. | true    |
+| persistent            | On remote creator (not owner) disconnect, attempts to take ownership of persistent entities rather than delete them                      | false   |
 
 ### Deleting Networked Entities
 
 Currently only the creator of a network entity can delete it. To delete, simply delete the element from the HTML using regular DOM APIs and Networked-Aframe will handle the syncing automatically.
-
 
 ### Syncing Custom Components
 
@@ -242,21 +238,21 @@ To sync other components and components of child entities you need to define a s
 
 ```javascript
 NAF.schemas.add({
-  template: '#avatar-template',
+  template: "#avatar-template",
   components: [
-    'position',
-    'rotation',
-    'scale',
+    "position",
+    "rotation",
+    "scale",
     {
-      selector: '.hairs',
-      component: 'show-child'
+      selector: ".hairs",
+      component: "show-child",
     },
     {
-      selector: '.head',
-      component: 'material',
-      property: 'color'
+      selector: ".head",
+      component: "material",
+      property: "color",
     },
-  ]
+  ],
 });
 ```
 
@@ -265,7 +261,6 @@ Components of the root entity can be defined with the name of the component. Com
 Once you've defined the schema then add it to the list of schemas by calling `NAF.schemas.add(YOUR_SCHEMA)`.
 
 Component data is retrieved by the A-Frame Component `data` property. During the network tick each component's data is checked against its previous synced value; if the data object has changed at all it will be synced across the network.
-
 
 ### Syncing nested templates - eg. hands
 
@@ -284,76 +279,75 @@ In this example the head/camera, left and right hands will spawn their own templ
 ### Sending Custom Messages
 
 ```javascript
-NAF.connection.subscribeToDataChannel(dataType, callback)
-NAF.connection.unsubscribeToDataChannel(dataType)
+NAF.connection.subscribeToDataChannel(dataType, callback);
+NAF.connection.unsubscribeToDataChannel(dataType);
 
-NAF.connection.broadcastData(dataType, data)
-NAF.connection.broadcastDataGuaranteed(dataType, data)
+NAF.connection.broadcastData(dataType, data);
+NAF.connection.broadcastDataGuaranteed(dataType, data);
 
-NAF.connection.sendData(clientId, dataType, data)
-NAF.connection.sendDataGuaranteed(clientId, dataType, data)
+NAF.connection.sendData(clientId, dataType, data);
+NAF.connection.sendDataGuaranteed(clientId, dataType, data);
 ```
 
 Subscribe and unsubscribe callbacks to network messages specified by `dataType`. Broadcast data to all clients in your room with the `broadcastData` functions. To send only to a specific client, use the `sendData` functions instead.
 
-| Parameter | Description
-| -------- | -----------
-| clientId | ClientId to send this data to
-| dataType  | String to identify a network message. `u` is a reserved data type, don't use it pls
-| callback  | Function to be called when message of type `dataType` is received. Parameters: `function(senderId, dataType, data, targetId)`
-| data | Object to be sent to all other clients
-
+| Parameter | Description                                                                                                                   |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| clientId  | ClientId to send this data to                                                                                                 |
+| dataType  | String to identify a network message. `u` is a reserved data type, don't use it pls                                           |
+| callback  | Function to be called when message of type `dataType` is received. Parameters: `function(senderId, dataType, data, targetId)` |
+| data      | Object to be sent to all other clients                                                                                        |
 
 ### Transfer Entity Ownership
 
 The owner of an entity is responsible for syncing its component data. When a user wants to modify another user's entity they must first take ownership of that entity. The [ownership transfer example](./examples/ownership-transfer.html) and the [toggle-ownership component](./examples/js/toggle-ownership.component.js) show how to take ownership of an entity and update it.
 
 ```javascript
-NAF.utils.takeOwnership(entityEl)
+NAF.utils.takeOwnership(entityEl);
 ```
 
 Take ownership of an entity.
 
 ```javascript
-NAF.utils.isMine(entityEl)
+NAF.utils.isMine(entityEl);
 ```
 
 Check if you own the specified entity.
-
 
 ### Events
 
 Events are fired when certain things happen in NAF. To subscribe to these events follow this pattern:
 
 ```javascript
-document.body.addEventListener('clientConnected', function (evt) {
-  console.error('clientConnected event. clientId =', evt.detail.clientId);
+document.body.addEventListener("clientConnected", function (evt) {
+  console.error("clientConnected event. clientId =", evt.detail.clientId);
 });
 ```
+
 Events need to be subscribed after the `document.body` element has been created. This could be achieved by waiting for the `document.body` `onLoad` method, or by using NAF's `onConnect` function. Use the [NAF Events Demo](https://github.com/networked-aframe/networked-aframe/blob/master/examples/basic-events.html) as an example.
 
 List of events:
 
-| Event | Description | Values |
-| -------- | ----------- | ------------- |
-| clientConnected | Fired when another client connects to you | `evt.detail.clientId` - ClientId of connecting client |
+| Event              | Description                                    | Values                                                   |
+| ------------------ | ---------------------------------------------- | -------------------------------------------------------- |
+| clientConnected    | Fired when another client connects to you      | `evt.detail.clientId` - ClientId of connecting client    |
 | clientDisconnected | Fired when another client disconnects from you | `evt.detail.clientId` - ClientId of disconnecting client |
-| entityCreated | Fired when a networked entity is created | `evt.detail.el` - new entity |
-| entityRemoved | Fired when a networked entity is deleted | `evt.detail.networkId` - networkId of deleted entity |
+| entityCreated      | Fired when a networked entity is created       | `evt.detail.el` - new entity                             |
+| entityRemoved      | Fired when a networked entity is deleted       | `evt.detail.networkId` - networkId of deleted entity     |
 
 The following events are fired on the `networked` component. See the [toggle-ownership component](./examples/js/toggle-ownership.component.js) for examples.
 
 List of ownership transfer events:
 
-| Event | Description | Values |
-| -------- | ----------- | ------------- |
-| ownership-gained | Fired when a networked entity's ownership is taken | `evt.detail.el` - the entity whose ownership was gained |
-| | | `evt.detail.oldOwner` - the clientId of the previous owner |
-| ownership-lost | Fired when a networked entity's ownership is lost | `evt.detail.el` - the entity whose ownership was lost |
-| | | `evt.detail.newOwner` - the clientId of the new owner |
-| ownership-changed | Fired when a networked entity's ownership is changed | `evt.detail.el` - the entity whose ownership was lost |
-| | | `evt.detail.oldOwner` - the clientId of the previous owner |
-| | | `evt.detail.newOwner` - the clientId of the new owner |
+| Event             | Description                                          | Values                                                     |
+| ----------------- | ---------------------------------------------------- | ---------------------------------------------------------- |
+| ownership-gained  | Fired when a networked entity's ownership is taken   | `evt.detail.el` - the entity whose ownership was gained    |
+|                   |                                                      | `evt.detail.oldOwner` - the clientId of the previous owner |
+| ownership-lost    | Fired when a networked entity's ownership is lost    | `evt.detail.el` - the entity whose ownership was lost      |
+|                   |                                                      | `evt.detail.newOwner` - the clientId of the new owner      |
+| ownership-changed | Fired when a networked entity's ownership is changed | `evt.detail.el` - the entity whose ownership was lost      |
+|                   |                                                      | `evt.detail.oldOwner` - the clientId of the previous owner |
+|                   |                                                      | `evt.detail.newOwner` - the clientId of the new owner      |
 
 ### Adapters
 
@@ -371,15 +365,15 @@ If you're interested in contributing to NAF a great opportunity is to add suppor
 
 List of the supported adapters:
 
-| Adapter | Description | Supports Audio/Video | WebSockets or WebRTC | How to start |
-| -------- | ----------- | ------------- | ----------- | ---------- |
-| wseasyrtc | DEFAULT - Uses the [open-easyrtc](https://github.com/open-easyrtc/open-easyrtc) library | No | WebSockets | `npm run dev` |
-| easyrtc | Uses the [open-easyrtc](https://github.com/open-easyrtc/open-easyrtc) library | Audio and Video (camera and screen share) | WebRTC | `npm run dev` |
-| janus | Uses the [Janus WebRTC server](https://github.com/meetecho/janus-gateway) and [janus-plugin-sfu](https://github.com/networked-aframe/janus-plugin-sfu) | Audio and Video (camera OR screen share) | WebRTC | See [naf-janus-adapter](https://github.com/networked-aframe/naf-janus-adapter/tree/3.0.x) |
-| socketio | SocketIO implementation without external library (work in progress, currently no maintainer) | No | WebSockets | `npm run dev-socketio` |
-| webrtc | Native WebRTC implementation without external library (work in progress, currently no maintainer) | Audio | WebRTC | `npm run dev-socketio` |
-| Firebase | [Firebase](https://firebase.google.com/) for WebRTC signalling (currently no maintainer) | No | WebRTC | See [naf-firebase-adapter](https://github.com/networked-aframe/naf-firebase-adapter) |
-| uWS | Implementation of [uWebSockets](https://github.com/uNetworking/uWebSockets) (currently no maintainer) | No | WebSockets | See [naf-uws-adapter](https://github.com/networked-aframe/naf-uws-adapter) |
+| Adapter   | Description                                                                                                                                            | Supports Audio/Video                      | WebSockets or WebRTC | How to start                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- | -------------------- | ----------------------------------------------------------------------------------------- |
+| wseasyrtc | DEFAULT - Uses the [open-easyrtc](https://github.com/open-easyrtc/open-easyrtc) library                                                                | No                                        | WebSockets           | `npm run dev`                                                                             |
+| easyrtc   | Uses the [open-easyrtc](https://github.com/open-easyrtc/open-easyrtc) library                                                                          | Audio and Video (camera and screen share) | WebRTC               | `npm run dev`                                                                             |
+| janus     | Uses the [Janus WebRTC server](https://github.com/meetecho/janus-gateway) and [janus-plugin-sfu](https://github.com/networked-aframe/janus-plugin-sfu) | Audio and Video (camera OR screen share)  | WebRTC               | See [naf-janus-adapter](https://github.com/networked-aframe/naf-janus-adapter/tree/3.0.x) |
+| socketio  | SocketIO implementation without external library (work in progress, currently no maintainer)                                                           | No                                        | WebSockets           | `npm run dev-socketio`                                                                    |
+| webrtc    | Native WebRTC implementation without external library (work in progress, currently no maintainer)                                                      | Audio                                     | WebRTC               | `npm run dev-socketio`                                                                    |
+| Firebase  | [Firebase](https://firebase.google.com/) for WebRTC signalling (currently no maintainer)                                                               | No                                        | WebRTC               | See [naf-firebase-adapter](https://github.com/networked-aframe/naf-firebase-adapter)      |
+| uWS       | Implementation of [uWebSockets](https://github.com/uNetworking/uWebSockets) (currently no maintainer)                                                  | No                                        | WebSockets           | See [naf-uws-adapter](https://github.com/networked-aframe/naf-uws-adapter)                |
 
 WebRTC in the table means that component updates is using WebRTC Datachannels
 (UDP) instead of the WebSocket (TCP). You still have a WebSocket for the signaling
@@ -396,7 +390,7 @@ To quickly get started, try the [Glitch NAF Audio Example](https://glitch.com/ed
 To mute/unmute the microphone, you can use the following API (easyrtc and janus adapters):
 
 ```javascript
-NAF.connection.adapter.enableMicrophone(enabled)
+NAF.connection.adapter.enableMicrophone(enabled);
 ```
 
 where `enabled` is `true` or `false`.
@@ -413,7 +407,7 @@ that shows the user camera without audio.
 To disable/reenable the camera, you can use the following API (easyrtc adapter only):
 
 ```javascript
-NAF.connection.adapter.enableCamera(enabled)
+NAF.connection.adapter.enableCamera(enabled);
 ```
 
 where `enabled` is `true` or `false`.
@@ -439,82 +433,72 @@ Be sure to look at the comments at the end of the html file of this example for 
 ### Misc
 
 ```javascript
-NAF.connection.isConnected()
+NAF.connection.isConnected();
 ```
 
 Returns true if a connection has been established to the signalling server.
 
 ```javascript
-NAF.connection.getConnectedClients()
+NAF.connection.getConnectedClients();
 ```
 
 Returns the list of currently connected clients.
 
-
 ### Options
 
 ```javascript
-NAF.options.updateRate
+NAF.options.updateRate;
 ```
 
 Frequency the network component `sync` function is called, per second. 10-20 is normal for most Social VR applications. Default is `15`.
 
 ```javascript
-NAF.options.useLerp
+NAF.options.useLerp;
 ```
 
 By default when an entity is created the [`buffered-interpolation`](https://github.com/InfiniteLee/buffered-interpolation) library is used to smooth out position, rotation and scale network updates. Set this to false if you don't want this feature to be used on creation.
 
-Stay in Touch
--------------
+## Stay in Touch
 
 - Join the [A-Frame Slack][slack] and add the #networked-aframe channel
 - Follow changes on [GitHub](https://github.com/networked-aframe/networked-aframe/subscription)
 - Let us know if you've made something with Networked-Aframe. We'd love to see it!
 
+## Help and More Information
 
-Help and More Information
-------------------------------
+- [Getting started tutorial](https://github.com/networked-aframe/networked-aframe/blob/master/docs/getting-started-local.md)
+- [Edit live example on glitch.com](https://glitch.com/~naf-project)
+- [Live demo site](https://naf-examples.glitch.me)
+- [Networked-Aframe Adapters](https://github.com/networked-aframe)
+- [A-Frame](https://aframe.io/)
+- [WebXR](https://immersiveweb.dev)
+- [Open EasyRTC WebRTC library](https://github.com/open-easyrtc/open-easyrtc)
+- [Hayden Lee, NAF creator and previous maintainer](https://twitter.com/haydenlee37)
+- [Vincent Fretin](https://twitter.com/vincentfretin) is handling new contributions and releases since the version 0.8.0
+- Bugs and requests can be filed on [GitHub Issues](https://github.com/networked-aframe/networked-aframe/issues)
 
-* [Getting started tutorial](https://github.com/networked-aframe/networked-aframe/blob/master/docs/getting-started-local.md)
-* [Edit live example on glitch.com](https://glitch.com/~naf-project)
-* [Live demo site](https://naf-examples.glitch.me)
-* [Networked-Aframe Adapters](https://github.com/networked-aframe)
-* [A-Frame](https://aframe.io/)
-* [WebXR](https://immersiveweb.dev)
-* [Open EasyRTC WebRTC library](https://github.com/open-easyrtc/open-easyrtc)
-* [Hayden Lee, NAF creator and previous maintainer](https://twitter.com/haydenlee37)
-* [Vincent Fretin](https://twitter.com/vincentfretin) is handling new contributions and releases since the version 0.8.0
-* Bugs and requests can be filed on [GitHub Issues](https://github.com/networked-aframe/networked-aframe/issues)
+## Folder Structure
 
+- `/ (root)`
+  - Licenses and package information
+- `/dist/`
+  - Packaged source code for deployment
+- `/server/`
+  - Server code
+- `/examples/`
+  - Example experiences
+- `/src/`
+  - Client source code
+- `/tests/`
+  - Unit tests
 
-Folder Structure
-----------------
+## Roadmap
 
- * `/ (root)`
-   * Licenses and package information
- * `/dist/`
-   * Packaged source code for deployment
- * `/server/`
-   * Server code
- * `/examples/`
-   * Example experiences
- * `/src/`
-   * Client source code
- * `/tests/`
-   * Unit tests
-
-
-Roadmap
--------
-
-* More examples!
-* [Add your suggestions](https://github.com/networked-aframe/networked-aframe/issues)
+- More examples!
+- [Add your suggestions](https://github.com/networked-aframe/networked-aframe/issues)
 
 Interested in contributing? [Open an issue](https://github.com/networked-aframe/networked-aframe/issues) or send a pull request.
 
-
-License
--------
+## License
 
 This program is free software and is distributed under an [MIT License](LICENSE).
