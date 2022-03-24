@@ -1,4 +1,4 @@
-This is a quick and dirty fork
+# This is a quick and dirty fork
 
 <img src="http://i.imgur.com/7ddbE0q.gif" width="300">
 
